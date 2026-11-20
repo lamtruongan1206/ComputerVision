@@ -61,7 +61,7 @@ def main():
     for loader_name in (
             'train_dataloader', 'val_dataloader', 'test_dataloader'):
         cfg[loader_name].dataset.data_root = str(args.data_root)
-    cfg.randomness = dict(seed=args.seed, deterministic=True)
+    cfg.randomness = dict(seed=args.seed, deterministic=False)
     cfg.work_dir = str(args.work_dir or
                        (ROOT / 'work_dirs' /
                         f'{args.experiment}_seed{args.seed}'))

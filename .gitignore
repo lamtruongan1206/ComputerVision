@@ -1,0 +1,5 @@
+work_dirs/
+*.pth
+venv310/
+data/
+__pycache__/

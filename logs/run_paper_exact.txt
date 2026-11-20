@@ -1,0 +1,4 @@
+nohup: ignoring input
+08:18:55 wait: free 7450 MiB
+=== try 1 Wed Nov 18 08:19:55 UTC 2026
+non-OOM error, stop

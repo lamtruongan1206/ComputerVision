@@ -1,0 +1,1377 @@
+/workspace/truongan/crop_nav/venv310/lib/python3.10/site-packages/mmcv/cnn/bricks/transformer.py:33: UserWarning: Fail to import ``MultiScaleDeformableAttention`` from ``mmcv.ops.multi_scale_deform_attn``, You should install ``mmcv`` rather than ``mmcv-lite`` if you need this module. 
+  warnings.warn('Fail to import ``MultiScaleDeformableAttention`` from '
+11/18 08:20:00 - mmengine - INFO - 
+------------------------------------------------------------
+System environment:
+    sys.platform: linux
+    Python: 3.10.22 (main, Oct  9 2026, 15:21:30) [Clang 22.1.3 ]
+    CUDA available: True
+    MUSA available: False
+    numpy_random_seed: 0
+    GPU 0: NVIDIA A100-SXM4-80GB
+    CUDA_HOME: /workspace/truongan/miniconda3/envs/MMUAV
+    NVCC: Cuda compilation tools, release 11.6, V11.6.55
+    GCC: cc (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0
+    PyTorch: 2.1.0+cu121
+    PyTorch compiling details: PyTorch built with:
+  - GCC 9.3
+  - C++ Version: 201703
+  - Intel(R) oneAPI Math Kernel Library Version 2022.2-Product Build 20220804 for Intel(R) 64 architecture applications
+  - Intel(R) MKL-DNN v3.1.1 (Git Hash 64f6bcbcbab628e96f33a62c3e975f8535a7bde4)
+  - OpenMP 201511 (a.k.a. OpenMP 4.5)
+  - LAPACK is enabled (usually provided by MKL)
+  - NNPACK is enabled
+  - CPU capability usage: AVX2
+  - CUDA Runtime 12.1
+  - NVCC architecture flags: -gencode;arch=compute_50,code=sm_50;-gencode;arch=compute_60,code=sm_60;-gencode;arch=compute_70,code=sm_70;-gencode;arch=compute_75,code=sm_75;-gencode;arch=compute_80,code=sm_80;-gencode;arch=compute_86,code=sm_86;-gencode;arch=compute_90,code=sm_90
+  - CuDNN 8.9.2
+  - Magma 2.6.1
+  - Build settings: BLAS_INFO=mkl, BUILD_TYPE=Release, CUDA_VERSION=12.1, CUDNN_VERSION=8.9.2, CXX_COMPILER=/opt/rh/devtoolset-9/root/usr/bin/c++, CXX_FLAGS= -D_GLIBCXX_USE_CXX11_ABI=0 -fabi-version=11 -fvisibility-inlines-hidden -DUSE_PTHREADPOOL -DNDEBUG -DUSE_KINETO -DLIBKINETO_NOROCTRACER -DUSE_FBGEMM -DUSE_QNNPACK -DUSE_PYTORCH_QNNPACK -DUSE_XNNPACK -DSYMBOLICATE_MOBILE_DEBUG_HANDLE -O2 -fPIC -Wall -Wextra -Werror=return-type -Werror=non-virtual-dtor -Werror=bool-operation -Wnarrowing -Wno-missing-field-initializers -Wno-type-limits -Wno-array-bounds -Wno-unknown-pragmas -Wno-unused-parameter -Wno-unused-function -Wno-unused-result -Wno-strict-overflow -Wno-strict-aliasing -Wno-stringop-overflow -Wno-psabi -Wno-error=pedantic -Wno-error=old-style-cast -Wno-invalid-partial-specialization -Wno-unused-private-field -Wno-aligned-allocation-unavailable -Wno-missing-braces -fdiagnostics-color=always -faligned-new -Wno-unused-but-set-variable -Wno-maybe-uninitialized -fno-math-errno -fno-trapping-math -Werror=format -Werror=cast-function-type -Wno-stringop-overflow, LAPACK_INFO=mkl, PERF_WITH_AVX=1, PERF_WITH_AVX2=1, PERF_WITH_AVX512=1, TORCH_DISABLE_GPU_ASSERTS=ON, TORCH_VERSION=2.1.0, USE_CUDA=ON, USE_CUDNN=ON, USE_EXCEPTION_PTR=1, USE_GFLAGS=OFF, USE_GLOG=OFF, USE_MKL=ON, USE_MKLDNN=ON, USE_MPI=OFF, USE_NCCL=1, USE_NNPACK=ON, USE_OPENMP=ON, USE_ROCM=OFF, 
+
+    TorchVision: 0.16.0+cu121
+    OpenCV: 4.9.0
+    MMEngine: 0.10.3
+
+Runtime environment:
+    cudnn_benchmark: False
+    mp_cfg: {'mp_start_method': 'fork', 'opencv_num_threads': 0}
+    dist_cfg: {'backend': 'nccl'}
+    seed: 0
+    deterministic: False
+    Distributed launcher: none
+    Distributed training: False
+    GPU number: 1
+------------------------------------------------------------
+
+11/18 08:20:00 - mmengine - INFO - Config:
+base_scale = (
+    2048,
+    2048,
+)
+crop_size = (
+    1024,
+    1024,
+)
+custom_imports = dict(
+    allow_failed_imports=False, imports=[
+        'agri_pidnet',
+    ])
+data_preprocessor = dict(
+    bgr_to_rgb=True,
+    mean=[
+        123.675,
+        116.28,
+        103.53,
+    ],
+    pad_val=0,
+    seg_pad_val=255,
+    size=(
+        1024,
+        1024,
+    ),
+    std=[
+        58.395,
+        57.12,
+        57.375,
+    ],
+    type='SegDataPreProcessor')
+data_root = 'data/cotton_two_stage'
+dataset_type = 'CottonFieldDataset'
+default_hooks = dict(
+    checkpoint=dict(by_epoch=False, interval=20000, type='CheckpointHook'),
+    logger=dict(interval=50, log_metric_by_epoch=False, type='LoggerHook'),
+    param_scheduler=dict(type='ParamSchedulerHook'),
+    sampler_seed=dict(type='DistSamplerSeedHook'),
+    timer=dict(type='IterTimerHook'),
+    visualization=dict(type='SegVisualizationHook'))
+default_scope = 'mmseg'
+env_cfg = dict(
+    cudnn_benchmark=False,
+    dist_cfg=dict(backend='nccl'),
+    mp_cfg=dict(mp_start_method='fork', opencv_num_threads=0))
+load_from = None
+log_level = 'INFO'
+log_processor = dict(by_epoch=False)
+model = dict(
+    data_preprocessor=dict(
+        bgr_to_rgb=True,
+        mean=[
+            123.675,
+            116.28,
+            103.53,
+        ],
+        pad_val=0,
+        seg_pad_val=255,
+        size=(
+            1024,
+            1024,
+        ),
+        std=[
+            58.395,
+            57.12,
+            57.375,
+        ],
+        type='SegDataPreProcessor'),
+    decode_head=dict(
+        boundary_loss_weight=0.2,
+        edge_width=4,
+        head_planes=128,
+        loss_decode=[
+            dict(
+                avg_non_ignore=True,
+                class_weight=[
+                    1.0,
+                    1.0,
+                    1.0,
+                    5.0,
+                ],
+                loss_name='loss_ce',
+                loss_weight=0.4,
+                type='CrossEntropyLoss',
+                use_sigmoid=False),
+            dict(
+                class_weight=[
+                    0.5,
+                    0.5,
+                    0.5,
+                    3.0,
+                ],
+                loss_name='loss_dice',
+                loss_weight=0.25,
+                type='AgriDiceLoss',
+                use_sigmoid=False),
+            dict(
+                class_weight=[
+                    1.0,
+                    1.0,
+                    1.0,
+                    4.0,
+                ],
+                classes='all',
+                loss_name='loss_lovasz',
+                loss_type='multi_class',
+                loss_weight=0.15,
+                per_image=False,
+                reduction='none',
+                type='LovaszLoss'),
+        ],
+        m=2,
+        n=3,
+        num_classes=4,
+        planes=32,
+        ppm_planes=96,
+        sampler=dict(min_kept=16384, thresh=0.7, type='OHEMPixelSampler'),
+        type='AgriPIDNetSHead',
+        use_boundary_loss=True,
+        use_bwr_bag=True,
+        use_ca=True,
+        use_ca_mkir=True,
+        use_mbcr=True,
+        use_sae_d2t=True,
+        use_window_attention=True),
+    pretrained=None,
+    test_cfg=dict(mode='whole'),
+    train_cfg=dict(),
+    type='AgriEncoderDecoder')
+optim_wrapper = dict(
+    clip_grad=dict(max_norm=1.0, norm_type=2),
+    optimizer=dict(
+        betas=(
+            0.9,
+            0.999,
+        ), lr=0.0005, type='AdamW', weight_decay=0.01),
+    type='OptimWrapper')
+param_scheduler = [
+    dict(
+        begin=0, by_epoch=False, end=1500, start_factor=0.001,
+        type='LinearLR'),
+    dict(
+        begin=1500,
+        by_epoch=False,
+        end=20000,
+        eta_min=1e-06,
+        power=0.9,
+        type='PolyLR'),
+]
+randomness = dict(deterministic=False, seed=0)
+resume = False
+test_cfg = dict(type='TestLoop')
+test_dataloader = dict(
+    batch_size=1,
+    dataset=dict(
+        data_prefix=dict(img_path='test/images', seg_map_path='test/masks'),
+        data_root='data/cotton_two_stage',
+        pipeline=[
+            dict(type='LoadImageFromFile'),
+            dict(keep_ratio=False, scale=(
+                1024,
+                1024,
+            ), type='Resize'),
+            dict(type='LoadAnnotations'),
+            dict(type='PackSegInputs'),
+        ],
+        test_mode=True,
+        type='CottonFieldDataset'),
+    num_workers=2,
+    persistent_workers=True,
+    sampler=dict(shuffle=False, type='DefaultSampler'))
+test_evaluator = dict(
+    iou_metrics=[
+        'mIoU',
+        'mFscore',
+    ], type='IoUMetric')
+test_pipeline = [
+    dict(type='LoadImageFromFile'),
+    dict(keep_ratio=False, scale=(
+        1024,
+        1024,
+    ), type='Resize'),
+    dict(type='LoadAnnotations'),
+    dict(type='PackSegInputs'),
+]
+train_cfg = dict(max_iters=20000, type='IterBasedTrainLoop', val_interval=2000)
+train_dataloader = dict(
+    batch_size=4,
+    dataset=dict(
+        data_prefix=dict(img_path='train/images', seg_map_path='train/masks'),
+        data_root='data/cotton_two_stage',
+        pipeline=[
+            dict(type='LoadImageFromFile'),
+            dict(type='LoadAnnotations'),
+            dict(
+                keep_ratio=True,
+                ratio_range=(
+                    0.5,
+                    1.5,
+                ),
+                scale=(
+                    2048,
+                    2048,
+                ),
+                type='RandomResize'),
+            dict(crop_size=(
+                1024,
+                1024,
+            ), type='RandomCrop'),
+            dict(prob=0.5, type='RandomFlip'),
+            dict(type='PackSegInputs'),
+        ],
+        type='CottonFieldDataset'),
+    num_workers=2,
+    persistent_workers=True,
+    sampler=dict(shuffle=True, type='InfiniteSampler'))
+train_pipeline = [
+    dict(type='LoadImageFromFile'),
+    dict(type='LoadAnnotations'),
+    dict(
+        keep_ratio=True,
+        ratio_range=(
+            0.5,
+            1.5,
+        ),
+        scale=(
+            2048,
+            2048,
+        ),
+        type='RandomResize'),
+    dict(crop_size=(
+        1024,
+        1024,
+    ), type='RandomCrop'),
+    dict(prob=0.5, type='RandomFlip'),
+    dict(type='PackSegInputs'),
+]
+val_cfg = dict(type='ValLoop')
+val_dataloader = dict(
+    batch_size=1,
+    dataset=dict(
+        data_prefix=dict(img_path='val/images', seg_map_path='val/masks'),
+        data_root='data/cotton_two_stage',
+        pipeline=[
+            dict(type='LoadImageFromFile'),
+            dict(keep_ratio=False, scale=(
+                1024,
+                1024,
+            ), type='Resize'),
+            dict(type='LoadAnnotations'),
+            dict(type='PackSegInputs'),
+        ],
+        test_mode=True,
+        type='CottonFieldDataset'),
+    num_workers=2,
+    persistent_workers=True,
+    sampler=dict(shuffle=False, type='DefaultSampler'))
+val_evaluator = dict(
+    iou_metrics=[
+        'mIoU',
+        'mFscore',
+    ], type='IoUMetric')
+vis_backends = [
+    dict(type='LocalVisBackend'),
+]
+visualizer = dict(
+    name='visualizer',
+    type='SegLocalVisualizer',
+    vis_backends=[
+        dict(type='LocalVisBackend'),
+    ])
+work_dir = 'work_dirs/paper_full_s0'
+
+/workspace/truongan/crop_nav/venv310/lib/python3.10/site-packages/mmseg/models/builder.py:36: UserWarning: ``build_loss`` would be deprecated soon, please use ``mmseg.registry.MODELS.build()`` 
+  warnings.warn('``build_loss`` would be deprecated soon, please use '
+/workspace/truongan/crop_nav/venv310/lib/python3.10/site-packages/mmseg/structures/sampler/builder.py:11: UserWarning: ``build_pixel_sampler`` would be deprecated soon, please use ``mmseg.registry.TASK_UTILS.build()`` 
+  warnings.warn(
+11/18 08:20:01 - mmengine - INFO - Distributed training is not used, all SyncBatchNorm (SyncBN) layers in the model will be automatically reverted to BatchNormXd layers if they are used.
+/workspace/truongan/crop_nav/venv310/lib/python3.10/site-packages/mmseg/engine/hooks/visualization_hook.py:60: UserWarning: The draw is False, it means that the hook for visualization will not take effect. The results will NOT be visualized or stored.
+  warnings.warn('The draw is False, it means that the '
+11/18 08:20:01 - mmengine - INFO - Hooks will be executed in the following order:
+before_run:
+(VERY_HIGH   ) RuntimeInfoHook                    
+(BELOW_NORMAL) LoggerHook                         
+ -------------------- 
+before_train:
+(VERY_HIGH   ) RuntimeInfoHook                    
+(NORMAL      ) IterTimerHook                      
+(VERY_LOW    ) CheckpointHook                     
+ -------------------- 
+before_train_epoch:
+(VERY_HIGH   ) RuntimeInfoHook                    
+(NORMAL      ) IterTimerHook                      
+(NORMAL      ) DistSamplerSeedHook                
+ -------------------- 
+before_train_iter:
+(VERY_HIGH   ) RuntimeInfoHook                    
+(NORMAL      ) IterTimerHook                      
+ -------------------- 
+after_train_iter:
+(VERY_HIGH   ) RuntimeInfoHook                    
+(NORMAL      ) IterTimerHook                      
+(NORMAL      ) SegVisualizationHook               
+(BELOW_NORMAL) LoggerHook                         
+(LOW         ) ParamSchedulerHook                 
+(VERY_LOW    ) CheckpointHook                     
+ -------------------- 
+after_train_epoch:
+(NORMAL      ) IterTimerHook                      
+(LOW         ) ParamSchedulerHook                 
+(VERY_LOW    ) CheckpointHook                     
+ -------------------- 
+before_val:
+(VERY_HIGH   ) RuntimeInfoHook                    
+ -------------------- 
+before_val_epoch:
+(NORMAL      ) IterTimerHook                      
+ -------------------- 
+before_val_iter:
+(NORMAL      ) IterTimerHook                      
+ -------------------- 
+after_val_iter:
+(NORMAL      ) IterTimerHook                      
+(NORMAL      ) SegVisualizationHook               
+(BELOW_NORMAL) LoggerHook                         
+ -------------------- 
+after_val_epoch:
+(VERY_HIGH   ) RuntimeInfoHook                    
+(NORMAL      ) IterTimerHook                      
+(BELOW_NORMAL) LoggerHook                         
+(LOW         ) ParamSchedulerHook                 
+(VERY_LOW    ) CheckpointHook                     
+ -------------------- 
+after_val:
+(VERY_HIGH   ) RuntimeInfoHook                    
+ -------------------- 
+after_train:
+(VERY_HIGH   ) RuntimeInfoHook                    
+(VERY_LOW    ) CheckpointHook                     
+ -------------------- 
+before_test:
+(VERY_HIGH   ) RuntimeInfoHook                    
+ -------------------- 
+before_test_epoch:
+(NORMAL      ) IterTimerHook                      
+ -------------------- 
+before_test_iter:
+(NORMAL      ) IterTimerHook                      
+ -------------------- 
+after_test_iter:
+(NORMAL      ) IterTimerHook                      
+(NORMAL      ) SegVisualizationHook               
+(BELOW_NORMAL) LoggerHook                         
+ -------------------- 
+after_test_epoch:
+(VERY_HIGH   ) RuntimeInfoHook                    
+(NORMAL      ) IterTimerHook                      
+(BELOW_NORMAL) LoggerHook                         
+ -------------------- 
+after_test:
+(VERY_HIGH   ) RuntimeInfoHook                    
+ -------------------- 
+after_run:
+(BELOW_NORMAL) LoggerHook                         
+ -------------------- 
+11/18 08:20:02 - mmengine - WARNING - The prefix is not set in metric class IoUMetric.
+11/18 08:20:02 - mmengine - WARNING - "FileClient" will be deprecated in future. Please use io functions in https://mmengine.readthedocs.io/en/latest/api/fileio.html#file-io
+11/18 08:20:02 - mmengine - WARNING - "HardDiskBackend" is the alias of "LocalBackend" and the former will be deprecated in future.
+11/18 08:20:02 - mmengine - INFO - Checkpoints will be saved to /workspace/truongan/crop_nav/xinyanlin/work_dirs/paper_full_s0.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [14,0,0], thread: [96,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [14,0,0], thread: [97,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [14,0,0], thread: [98,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [20,0,0], thread: [0,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [20,0,0], thread: [1,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [20,0,0], thread: [2,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [20,0,0], thread: [3,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [18,0,0], thread: [32,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [18,0,0], thread: [33,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [18,0,0], thread: [34,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [18,0,0], thread: [35,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [18,0,0], thread: [36,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [18,0,0], thread: [37,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [18,0,0], thread: [38,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [18,0,0], thread: [39,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [16,0,0], thread: [64,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [16,0,0], thread: [65,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [16,0,0], thread: [66,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [16,0,0], thread: [67,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [16,0,0], thread: [68,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [16,0,0], thread: [69,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [16,0,0], thread: [70,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [16,0,0], thread: [71,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [16,0,0], thread: [72,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [16,0,0], thread: [73,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [16,0,0], thread: [74,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [14,0,0], thread: [0,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [14,0,0], thread: [1,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [14,0,0], thread: [2,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [14,0,0], thread: [3,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [14,0,0], thread: [4,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [14,0,0], thread: [5,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [14,0,0], thread: [6,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [14,0,0], thread: [7,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [14,0,0], thread: [8,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [14,0,0], thread: [9,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [14,0,0], thread: [10,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [14,0,0], thread: [11,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [14,0,0], thread: [12,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [14,0,0], thread: [13,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [14,0,0], thread: [14,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [14,0,0], thread: [15,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [14,0,0], thread: [16,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [14,0,0], thread: [17,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [14,0,0], thread: [18,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [14,0,0], thread: [19,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [14,0,0], thread: [20,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [14,0,0], thread: [21,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [14,0,0], thread: [22,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [14,0,0], thread: [23,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [14,0,0], thread: [24,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [14,0,0], thread: [25,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [14,0,0], thread: [26,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [14,0,0], thread: [27,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [14,0,0], thread: [28,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [14,0,0], thread: [29,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [14,0,0], thread: [30,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [14,0,0], thread: [31,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [14,0,0], thread: [32,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [14,0,0], thread: [33,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [14,0,0], thread: [34,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [14,0,0], thread: [35,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [14,0,0], thread: [36,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [14,0,0], thread: [37,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [14,0,0], thread: [38,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [14,0,0], thread: [39,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [14,0,0], thread: [40,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [14,0,0], thread: [41,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [14,0,0], thread: [42,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [14,0,0], thread: [43,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [14,0,0], thread: [44,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [14,0,0], thread: [45,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [14,0,0], thread: [46,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [14,0,0], thread: [47,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [14,0,0], thread: [48,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [14,0,0], thread: [49,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [14,0,0], thread: [50,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [14,0,0], thread: [51,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [14,0,0], thread: [52,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [14,0,0], thread: [53,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [14,0,0], thread: [54,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [14,0,0], thread: [55,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [14,0,0], thread: [56,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [14,0,0], thread: [57,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [14,0,0], thread: [58,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [14,0,0], thread: [59,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [14,0,0], thread: [60,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [14,0,0], thread: [61,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [14,0,0], thread: [62,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [14,0,0], thread: [63,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [14,0,0], thread: [64,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [14,0,0], thread: [65,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [14,0,0], thread: [66,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [14,0,0], thread: [67,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [14,0,0], thread: [68,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [14,0,0], thread: [69,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [14,0,0], thread: [70,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [14,0,0], thread: [71,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [14,0,0], thread: [72,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [14,0,0], thread: [73,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [14,0,0], thread: [74,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [14,0,0], thread: [75,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [14,0,0], thread: [76,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [14,0,0], thread: [77,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [14,0,0], thread: [78,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [14,0,0], thread: [79,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [14,0,0], thread: [80,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [14,0,0], thread: [81,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [14,0,0], thread: [82,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [14,0,0], thread: [83,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [14,0,0], thread: [84,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [14,0,0], thread: [85,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [14,0,0], thread: [86,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [14,0,0], thread: [87,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [14,0,0], thread: [88,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [14,0,0], thread: [89,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [14,0,0], thread: [90,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [14,0,0], thread: [91,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [14,0,0], thread: [92,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [14,0,0], thread: [93,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [14,0,0], thread: [94,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [14,0,0], thread: [95,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [8,0,0], thread: [96,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [8,0,0], thread: [97,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [8,0,0], thread: [98,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [8,0,0], thread: [99,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [8,0,0], thread: [100,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [8,0,0], thread: [101,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [8,0,0], thread: [102,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [8,0,0], thread: [103,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [8,0,0], thread: [104,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [8,0,0], thread: [105,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [8,0,0], thread: [106,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [8,0,0], thread: [107,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [8,0,0], thread: [108,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [8,0,0], thread: [109,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [8,0,0], thread: [110,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [8,0,0], thread: [111,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [8,0,0], thread: [112,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [8,0,0], thread: [113,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [8,0,0], thread: [114,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [8,0,0], thread: [115,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [8,0,0], thread: [116,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [8,0,0], thread: [117,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [8,0,0], thread: [118,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [8,0,0], thread: [119,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [8,0,0], thread: [120,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [8,0,0], thread: [121,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [8,0,0], thread: [122,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [8,0,0], thread: [123,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [8,0,0], thread: [124,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [8,0,0], thread: [125,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [8,0,0], thread: [126,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [8,0,0], thread: [127,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [8,0,0], thread: [0,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [8,0,0], thread: [1,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [8,0,0], thread: [2,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [8,0,0], thread: [3,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [8,0,0], thread: [4,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [8,0,0], thread: [5,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [8,0,0], thread: [6,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [8,0,0], thread: [7,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [8,0,0], thread: [8,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [8,0,0], thread: [9,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [8,0,0], thread: [10,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [8,0,0], thread: [11,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [8,0,0], thread: [12,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [8,0,0], thread: [13,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [8,0,0], thread: [14,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [8,0,0], thread: [15,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [8,0,0], thread: [16,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [8,0,0], thread: [17,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [8,0,0], thread: [18,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [8,0,0], thread: [19,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [8,0,0], thread: [20,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [8,0,0], thread: [21,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [8,0,0], thread: [22,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [8,0,0], thread: [23,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [8,0,0], thread: [24,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [8,0,0], thread: [25,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [8,0,0], thread: [26,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [8,0,0], thread: [27,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [8,0,0], thread: [28,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [8,0,0], thread: [29,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [8,0,0], thread: [30,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [8,0,0], thread: [31,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [8,0,0], thread: [32,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [8,0,0], thread: [33,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [8,0,0], thread: [34,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [8,0,0], thread: [35,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [8,0,0], thread: [36,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [8,0,0], thread: [37,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [8,0,0], thread: [38,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [8,0,0], thread: [39,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [8,0,0], thread: [40,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [8,0,0], thread: [41,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [8,0,0], thread: [42,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [8,0,0], thread: [43,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [8,0,0], thread: [44,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [8,0,0], thread: [45,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [8,0,0], thread: [46,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [8,0,0], thread: [47,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [8,0,0], thread: [48,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [8,0,0], thread: [49,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [8,0,0], thread: [50,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [8,0,0], thread: [51,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [8,0,0], thread: [52,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [8,0,0], thread: [53,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [8,0,0], thread: [54,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [8,0,0], thread: [55,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [8,0,0], thread: [56,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [8,0,0], thread: [57,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [8,0,0], thread: [58,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [8,0,0], thread: [59,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [8,0,0], thread: [60,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [8,0,0], thread: [61,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [8,0,0], thread: [62,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [8,0,0], thread: [63,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [8,0,0], thread: [64,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [8,0,0], thread: [65,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [8,0,0], thread: [66,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [8,0,0], thread: [67,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [8,0,0], thread: [68,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [8,0,0], thread: [69,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [8,0,0], thread: [70,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [8,0,0], thread: [71,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [8,0,0], thread: [72,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [8,0,0], thread: [73,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [8,0,0], thread: [74,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [8,0,0], thread: [75,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [8,0,0], thread: [76,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [8,0,0], thread: [77,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [8,0,0], thread: [78,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [8,0,0], thread: [79,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [8,0,0], thread: [80,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [8,0,0], thread: [81,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [8,0,0], thread: [82,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [8,0,0], thread: [83,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [8,0,0], thread: [84,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [8,0,0], thread: [85,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [8,0,0], thread: [86,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [8,0,0], thread: [87,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [8,0,0], thread: [88,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [8,0,0], thread: [89,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [8,0,0], thread: [90,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [8,0,0], thread: [91,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [8,0,0], thread: [92,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [8,0,0], thread: [93,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [8,0,0], thread: [94,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [8,0,0], thread: [95,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [0,0,0], thread: [0,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [0,0,0], thread: [1,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [0,0,0], thread: [2,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [0,0,0], thread: [3,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [0,0,0], thread: [4,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [0,0,0], thread: [5,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [0,0,0], thread: [6,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [0,0,0], thread: [7,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [0,0,0], thread: [8,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [0,0,0], thread: [9,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [0,0,0], thread: [10,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [0,0,0], thread: [11,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [0,0,0], thread: [12,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [0,0,0], thread: [13,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [0,0,0], thread: [14,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [0,0,0], thread: [15,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [0,0,0], thread: [16,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [0,0,0], thread: [17,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [0,0,0], thread: [18,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [0,0,0], thread: [19,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [0,0,0], thread: [20,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [0,0,0], thread: [21,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [0,0,0], thread: [22,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [0,0,0], thread: [23,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [0,0,0], thread: [24,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [0,0,0], thread: [25,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [0,0,0], thread: [26,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [0,0,0], thread: [27,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [0,0,0], thread: [28,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [0,0,0], thread: [29,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [0,0,0], thread: [30,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [0,0,0], thread: [31,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [0,0,0], thread: [32,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [0,0,0], thread: [33,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [0,0,0], thread: [34,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [0,0,0], thread: [35,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [0,0,0], thread: [36,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [0,0,0], thread: [37,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [0,0,0], thread: [38,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [0,0,0], thread: [39,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [0,0,0], thread: [40,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [0,0,0], thread: [41,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [0,0,0], thread: [42,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [0,0,0], thread: [43,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [0,0,0], thread: [44,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [0,0,0], thread: [45,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [0,0,0], thread: [46,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [0,0,0], thread: [47,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [0,0,0], thread: [48,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [0,0,0], thread: [49,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [0,0,0], thread: [50,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [0,0,0], thread: [51,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [0,0,0], thread: [52,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [0,0,0], thread: [53,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [0,0,0], thread: [54,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [0,0,0], thread: [55,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [0,0,0], thread: [56,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [0,0,0], thread: [57,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [0,0,0], thread: [58,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [0,0,0], thread: [59,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [0,0,0], thread: [60,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [0,0,0], thread: [61,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [0,0,0], thread: [62,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [0,0,0], thread: [63,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [10,0,0], thread: [96,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [10,0,0], thread: [97,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [10,0,0], thread: [98,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [10,0,0], thread: [99,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [10,0,0], thread: [100,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [10,0,0], thread: [101,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [10,0,0], thread: [102,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [10,0,0], thread: [103,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [10,0,0], thread: [104,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [10,0,0], thread: [105,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [10,0,0], thread: [106,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [10,0,0], thread: [107,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [10,0,0], thread: [108,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [10,0,0], thread: [109,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [10,0,0], thread: [110,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [10,0,0], thread: [111,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [10,0,0], thread: [112,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [10,0,0], thread: [113,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [10,0,0], thread: [114,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [10,0,0], thread: [115,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [10,0,0], thread: [116,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [10,0,0], thread: [117,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [10,0,0], thread: [118,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [10,0,0], thread: [119,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [10,0,0], thread: [120,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [10,0,0], thread: [121,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [10,0,0], thread: [122,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [10,0,0], thread: [123,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [10,0,0], thread: [124,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [10,0,0], thread: [125,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [10,0,0], thread: [126,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [10,0,0], thread: [127,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [0,0,0], thread: [64,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [0,0,0], thread: [65,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [0,0,0], thread: [66,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [0,0,0], thread: [67,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [0,0,0], thread: [68,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [0,0,0], thread: [69,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [0,0,0], thread: [70,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [0,0,0], thread: [71,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [0,0,0], thread: [72,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [0,0,0], thread: [73,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [0,0,0], thread: [74,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [0,0,0], thread: [75,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [0,0,0], thread: [76,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [0,0,0], thread: [77,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [0,0,0], thread: [78,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [0,0,0], thread: [79,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [0,0,0], thread: [80,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [0,0,0], thread: [81,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [0,0,0], thread: [82,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [0,0,0], thread: [83,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [0,0,0], thread: [84,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [0,0,0], thread: [85,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [0,0,0], thread: [86,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [0,0,0], thread: [87,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [0,0,0], thread: [88,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [0,0,0], thread: [89,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [0,0,0], thread: [90,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [0,0,0], thread: [91,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [0,0,0], thread: [92,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [0,0,0], thread: [93,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [0,0,0], thread: [94,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [0,0,0], thread: [95,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [10,0,0], thread: [0,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [10,0,0], thread: [1,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [10,0,0], thread: [2,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [10,0,0], thread: [3,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [10,0,0], thread: [4,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [10,0,0], thread: [5,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [10,0,0], thread: [6,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [10,0,0], thread: [7,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [10,0,0], thread: [8,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [10,0,0], thread: [9,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [10,0,0], thread: [10,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [10,0,0], thread: [11,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [10,0,0], thread: [12,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [10,0,0], thread: [13,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [10,0,0], thread: [14,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [10,0,0], thread: [15,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [10,0,0], thread: [16,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [10,0,0], thread: [17,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [10,0,0], thread: [18,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [10,0,0], thread: [19,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [10,0,0], thread: [20,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [10,0,0], thread: [21,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [10,0,0], thread: [22,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [10,0,0], thread: [23,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [10,0,0], thread: [24,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [10,0,0], thread: [25,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [10,0,0], thread: [26,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [10,0,0], thread: [27,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [10,0,0], thread: [28,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [10,0,0], thread: [29,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [10,0,0], thread: [30,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [10,0,0], thread: [31,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [0,0,0], thread: [96,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [0,0,0], thread: [97,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [0,0,0], thread: [98,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [0,0,0], thread: [99,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [0,0,0], thread: [100,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [0,0,0], thread: [101,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [0,0,0], thread: [102,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [0,0,0], thread: [103,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [0,0,0], thread: [104,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [0,0,0], thread: [105,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [0,0,0], thread: [106,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [0,0,0], thread: [107,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [0,0,0], thread: [108,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [0,0,0], thread: [109,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [0,0,0], thread: [110,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [0,0,0], thread: [111,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [0,0,0], thread: [112,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [0,0,0], thread: [113,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [0,0,0], thread: [114,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [0,0,0], thread: [115,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [0,0,0], thread: [116,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [0,0,0], thread: [117,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [0,0,0], thread: [118,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [0,0,0], thread: [119,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [0,0,0], thread: [120,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [0,0,0], thread: [121,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [0,0,0], thread: [122,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [0,0,0], thread: [123,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [0,0,0], thread: [124,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [0,0,0], thread: [125,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [0,0,0], thread: [126,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [0,0,0], thread: [127,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [10,0,0], thread: [32,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [10,0,0], thread: [33,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [10,0,0], thread: [34,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [10,0,0], thread: [35,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [10,0,0], thread: [36,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [10,0,0], thread: [37,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [10,0,0], thread: [38,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [10,0,0], thread: [39,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [10,0,0], thread: [40,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [10,0,0], thread: [41,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [10,0,0], thread: [42,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [10,0,0], thread: [43,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [10,0,0], thread: [44,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [10,0,0], thread: [45,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [10,0,0], thread: [46,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [10,0,0], thread: [47,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [10,0,0], thread: [48,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [10,0,0], thread: [49,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [10,0,0], thread: [50,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [10,0,0], thread: [51,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [10,0,0], thread: [52,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [10,0,0], thread: [53,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [10,0,0], thread: [54,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [10,0,0], thread: [55,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [10,0,0], thread: [56,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [10,0,0], thread: [57,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [10,0,0], thread: [58,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [10,0,0], thread: [59,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [10,0,0], thread: [60,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [10,0,0], thread: [61,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [10,0,0], thread: [62,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [10,0,0], thread: [63,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [10,0,0], thread: [64,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [10,0,0], thread: [65,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [10,0,0], thread: [66,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [10,0,0], thread: [67,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [10,0,0], thread: [68,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [10,0,0], thread: [69,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [10,0,0], thread: [70,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [10,0,0], thread: [71,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [10,0,0], thread: [72,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [10,0,0], thread: [73,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [10,0,0], thread: [74,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [10,0,0], thread: [75,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [10,0,0], thread: [76,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [10,0,0], thread: [77,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [10,0,0], thread: [78,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [10,0,0], thread: [79,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [10,0,0], thread: [80,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [10,0,0], thread: [81,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [10,0,0], thread: [82,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [10,0,0], thread: [83,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [10,0,0], thread: [84,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [10,0,0], thread: [85,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [10,0,0], thread: [86,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [10,0,0], thread: [87,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [10,0,0], thread: [88,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [10,0,0], thread: [89,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [10,0,0], thread: [90,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [10,0,0], thread: [91,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [10,0,0], thread: [92,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [10,0,0], thread: [93,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [10,0,0], thread: [94,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [10,0,0], thread: [95,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [2,0,0], thread: [0,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [2,0,0], thread: [1,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [2,0,0], thread: [2,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [2,0,0], thread: [3,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [2,0,0], thread: [4,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [2,0,0], thread: [5,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [2,0,0], thread: [6,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [2,0,0], thread: [7,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [2,0,0], thread: [8,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [2,0,0], thread: [9,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [2,0,0], thread: [10,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [2,0,0], thread: [11,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [2,0,0], thread: [12,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [2,0,0], thread: [13,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [2,0,0], thread: [14,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [2,0,0], thread: [15,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [2,0,0], thread: [16,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [2,0,0], thread: [17,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [2,0,0], thread: [18,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [2,0,0], thread: [19,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [2,0,0], thread: [20,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [2,0,0], thread: [21,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [2,0,0], thread: [22,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [2,0,0], thread: [23,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [2,0,0], thread: [24,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [2,0,0], thread: [25,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [2,0,0], thread: [26,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [2,0,0], thread: [27,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [2,0,0], thread: [28,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [2,0,0], thread: [29,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [2,0,0], thread: [30,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [2,0,0], thread: [31,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [4,0,0], thread: [96,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [4,0,0], thread: [97,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [4,0,0], thread: [98,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [4,0,0], thread: [99,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [4,0,0], thread: [100,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [4,0,0], thread: [101,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [4,0,0], thread: [102,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [4,0,0], thread: [103,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [4,0,0], thread: [104,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [4,0,0], thread: [105,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [4,0,0], thread: [106,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [4,0,0], thread: [107,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [4,0,0], thread: [108,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [4,0,0], thread: [109,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [4,0,0], thread: [110,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [4,0,0], thread: [111,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [4,0,0], thread: [112,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [4,0,0], thread: [113,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [4,0,0], thread: [114,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [4,0,0], thread: [115,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [4,0,0], thread: [116,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [4,0,0], thread: [117,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [4,0,0], thread: [118,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [4,0,0], thread: [119,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [4,0,0], thread: [120,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [4,0,0], thread: [121,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [4,0,0], thread: [122,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [4,0,0], thread: [123,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [4,0,0], thread: [124,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [4,0,0], thread: [125,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [4,0,0], thread: [126,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [4,0,0], thread: [127,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [2,0,0], thread: [32,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [2,0,0], thread: [33,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [2,0,0], thread: [34,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [2,0,0], thread: [35,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [2,0,0], thread: [36,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [2,0,0], thread: [37,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [2,0,0], thread: [38,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [2,0,0], thread: [39,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [2,0,0], thread: [40,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [2,0,0], thread: [41,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [2,0,0], thread: [42,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [2,0,0], thread: [43,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [2,0,0], thread: [44,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [2,0,0], thread: [45,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [2,0,0], thread: [46,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [2,0,0], thread: [47,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [2,0,0], thread: [48,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [2,0,0], thread: [49,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [2,0,0], thread: [50,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [2,0,0], thread: [51,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [2,0,0], thread: [52,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [2,0,0], thread: [53,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [2,0,0], thread: [54,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [2,0,0], thread: [55,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [2,0,0], thread: [56,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [2,0,0], thread: [57,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [2,0,0], thread: [58,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [2,0,0], thread: [59,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [2,0,0], thread: [60,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [2,0,0], thread: [61,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [2,0,0], thread: [62,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [2,0,0], thread: [63,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [2,0,0], thread: [64,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [2,0,0], thread: [65,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [2,0,0], thread: [66,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [2,0,0], thread: [67,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [2,0,0], thread: [68,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [2,0,0], thread: [69,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [2,0,0], thread: [70,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [2,0,0], thread: [71,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [2,0,0], thread: [72,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [2,0,0], thread: [73,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [2,0,0], thread: [74,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [2,0,0], thread: [75,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [2,0,0], thread: [76,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [2,0,0], thread: [77,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [2,0,0], thread: [78,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [2,0,0], thread: [79,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [2,0,0], thread: [80,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [2,0,0], thread: [81,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [2,0,0], thread: [82,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [2,0,0], thread: [83,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [2,0,0], thread: [84,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [2,0,0], thread: [85,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [2,0,0], thread: [86,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [2,0,0], thread: [87,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [2,0,0], thread: [88,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [2,0,0], thread: [89,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [2,0,0], thread: [90,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [2,0,0], thread: [91,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [2,0,0], thread: [92,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [2,0,0], thread: [93,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [2,0,0], thread: [94,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [2,0,0], thread: [95,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [2,0,0], thread: [96,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [2,0,0], thread: [97,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [2,0,0], thread: [98,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [2,0,0], thread: [99,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [2,0,0], thread: [100,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [2,0,0], thread: [101,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [2,0,0], thread: [102,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [2,0,0], thread: [103,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [2,0,0], thread: [104,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [2,0,0], thread: [105,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [2,0,0], thread: [106,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [2,0,0], thread: [107,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [2,0,0], thread: [108,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [2,0,0], thread: [109,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [2,0,0], thread: [110,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [2,0,0], thread: [111,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [2,0,0], thread: [112,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [2,0,0], thread: [113,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [2,0,0], thread: [114,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [2,0,0], thread: [115,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [2,0,0], thread: [116,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [2,0,0], thread: [117,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [2,0,0], thread: [118,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [2,0,0], thread: [119,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [2,0,0], thread: [120,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [2,0,0], thread: [121,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [2,0,0], thread: [122,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [2,0,0], thread: [123,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [2,0,0], thread: [124,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [2,0,0], thread: [125,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [2,0,0], thread: [126,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [2,0,0], thread: [127,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [12,0,0], thread: [96,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [12,0,0], thread: [97,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [12,0,0], thread: [98,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [12,0,0], thread: [99,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [12,0,0], thread: [100,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [12,0,0], thread: [101,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [12,0,0], thread: [102,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [12,0,0], thread: [103,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [12,0,0], thread: [104,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [12,0,0], thread: [105,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [12,0,0], thread: [106,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [12,0,0], thread: [107,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [12,0,0], thread: [108,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [12,0,0], thread: [109,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [12,0,0], thread: [110,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [12,0,0], thread: [111,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [12,0,0], thread: [112,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [12,0,0], thread: [113,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [12,0,0], thread: [114,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [12,0,0], thread: [115,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [12,0,0], thread: [116,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [12,0,0], thread: [117,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [12,0,0], thread: [118,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [12,0,0], thread: [119,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [12,0,0], thread: [120,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [12,0,0], thread: [121,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [12,0,0], thread: [122,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [12,0,0], thread: [123,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [12,0,0], thread: [124,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [12,0,0], thread: [125,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [12,0,0], thread: [126,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [12,0,0], thread: [127,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [12,0,0], thread: [64,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [12,0,0], thread: [65,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [12,0,0], thread: [66,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [12,0,0], thread: [67,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [12,0,0], thread: [68,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [12,0,0], thread: [69,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [12,0,0], thread: [70,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [12,0,0], thread: [71,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [12,0,0], thread: [72,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [12,0,0], thread: [73,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [12,0,0], thread: [74,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [12,0,0], thread: [75,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [12,0,0], thread: [76,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [12,0,0], thread: [77,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [12,0,0], thread: [78,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [12,0,0], thread: [79,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [12,0,0], thread: [80,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [12,0,0], thread: [81,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [12,0,0], thread: [82,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [12,0,0], thread: [83,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [12,0,0], thread: [84,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [12,0,0], thread: [85,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [12,0,0], thread: [86,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [12,0,0], thread: [87,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [12,0,0], thread: [88,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [12,0,0], thread: [89,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [12,0,0], thread: [90,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [12,0,0], thread: [91,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [12,0,0], thread: [92,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [12,0,0], thread: [93,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [12,0,0], thread: [94,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [12,0,0], thread: [95,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [12,0,0], thread: [0,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [12,0,0], thread: [1,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [12,0,0], thread: [2,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [12,0,0], thread: [3,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [12,0,0], thread: [4,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [12,0,0], thread: [5,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [12,0,0], thread: [6,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [12,0,0], thread: [7,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [12,0,0], thread: [8,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [12,0,0], thread: [9,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [12,0,0], thread: [10,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [12,0,0], thread: [11,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [12,0,0], thread: [12,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [12,0,0], thread: [13,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [12,0,0], thread: [14,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [12,0,0], thread: [15,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [12,0,0], thread: [16,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [12,0,0], thread: [17,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [12,0,0], thread: [18,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [12,0,0], thread: [19,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [12,0,0], thread: [20,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [12,0,0], thread: [21,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [12,0,0], thread: [22,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [12,0,0], thread: [23,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [12,0,0], thread: [24,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [12,0,0], thread: [25,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [12,0,0], thread: [26,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [12,0,0], thread: [27,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [12,0,0], thread: [28,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [12,0,0], thread: [29,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [12,0,0], thread: [30,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [12,0,0], thread: [31,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [12,0,0], thread: [32,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [12,0,0], thread: [33,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [12,0,0], thread: [34,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [12,0,0], thread: [35,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [12,0,0], thread: [36,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [12,0,0], thread: [37,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [12,0,0], thread: [38,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [12,0,0], thread: [39,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [12,0,0], thread: [40,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [12,0,0], thread: [41,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [12,0,0], thread: [42,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [12,0,0], thread: [43,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [12,0,0], thread: [44,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [12,0,0], thread: [45,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [12,0,0], thread: [46,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [12,0,0], thread: [47,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [12,0,0], thread: [48,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [12,0,0], thread: [49,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [12,0,0], thread: [50,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [12,0,0], thread: [51,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [12,0,0], thread: [52,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [12,0,0], thread: [53,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [12,0,0], thread: [54,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [12,0,0], thread: [55,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [12,0,0], thread: [56,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [12,0,0], thread: [57,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [12,0,0], thread: [58,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [12,0,0], thread: [59,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [12,0,0], thread: [60,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [12,0,0], thread: [61,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [12,0,0], thread: [62,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [12,0,0], thread: [63,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [6,0,0], thread: [32,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [6,0,0], thread: [33,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [6,0,0], thread: [34,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [6,0,0], thread: [35,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [6,0,0], thread: [36,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [6,0,0], thread: [37,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [6,0,0], thread: [38,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [6,0,0], thread: [39,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [6,0,0], thread: [40,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [6,0,0], thread: [41,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [6,0,0], thread: [42,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [6,0,0], thread: [43,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [6,0,0], thread: [44,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [6,0,0], thread: [45,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [6,0,0], thread: [46,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [6,0,0], thread: [47,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [6,0,0], thread: [48,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [6,0,0], thread: [49,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [6,0,0], thread: [50,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [6,0,0], thread: [51,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [6,0,0], thread: [52,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [6,0,0], thread: [53,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [6,0,0], thread: [54,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [6,0,0], thread: [55,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [6,0,0], thread: [56,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [6,0,0], thread: [57,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [6,0,0], thread: [58,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [6,0,0], thread: [59,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [6,0,0], thread: [60,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [6,0,0], thread: [61,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [6,0,0], thread: [62,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [6,0,0], thread: [63,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [6,0,0], thread: [0,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [6,0,0], thread: [1,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [6,0,0], thread: [2,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [6,0,0], thread: [3,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [6,0,0], thread: [4,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [6,0,0], thread: [5,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [6,0,0], thread: [6,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [6,0,0], thread: [7,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [6,0,0], thread: [8,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [6,0,0], thread: [9,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [6,0,0], thread: [10,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [6,0,0], thread: [11,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [6,0,0], thread: [12,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [6,0,0], thread: [13,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [6,0,0], thread: [14,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [6,0,0], thread: [15,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [6,0,0], thread: [16,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [6,0,0], thread: [17,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [6,0,0], thread: [18,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [6,0,0], thread: [19,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [6,0,0], thread: [20,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [6,0,0], thread: [21,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [6,0,0], thread: [22,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [6,0,0], thread: [23,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [6,0,0], thread: [24,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [6,0,0], thread: [25,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [6,0,0], thread: [26,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [6,0,0], thread: [27,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [6,0,0], thread: [28,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [6,0,0], thread: [29,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [6,0,0], thread: [30,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [6,0,0], thread: [31,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [6,0,0], thread: [64,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [6,0,0], thread: [65,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [6,0,0], thread: [66,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [6,0,0], thread: [67,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [6,0,0], thread: [68,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [6,0,0], thread: [69,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [6,0,0], thread: [70,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [6,0,0], thread: [71,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [6,0,0], thread: [72,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [6,0,0], thread: [73,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [6,0,0], thread: [74,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [6,0,0], thread: [75,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [6,0,0], thread: [76,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [6,0,0], thread: [77,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [6,0,0], thread: [78,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [6,0,0], thread: [79,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [6,0,0], thread: [80,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [6,0,0], thread: [81,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [6,0,0], thread: [82,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [6,0,0], thread: [83,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [6,0,0], thread: [84,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [6,0,0], thread: [85,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [6,0,0], thread: [86,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [6,0,0], thread: [87,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [6,0,0], thread: [88,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [6,0,0], thread: [89,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [6,0,0], thread: [90,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [6,0,0], thread: [91,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [6,0,0], thread: [92,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [6,0,0], thread: [93,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [6,0,0], thread: [94,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [6,0,0], thread: [95,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [6,0,0], thread: [96,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [6,0,0], thread: [97,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [6,0,0], thread: [98,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [6,0,0], thread: [99,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [6,0,0], thread: [100,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [6,0,0], thread: [101,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [6,0,0], thread: [102,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [6,0,0], thread: [103,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [6,0,0], thread: [104,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [6,0,0], thread: [105,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [6,0,0], thread: [106,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [6,0,0], thread: [107,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [6,0,0], thread: [108,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [6,0,0], thread: [109,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [6,0,0], thread: [110,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [6,0,0], thread: [111,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [6,0,0], thread: [112,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [6,0,0], thread: [113,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [6,0,0], thread: [114,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [6,0,0], thread: [115,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [6,0,0], thread: [116,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [6,0,0], thread: [117,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [6,0,0], thread: [118,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [6,0,0], thread: [119,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [6,0,0], thread: [120,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [6,0,0], thread: [121,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [6,0,0], thread: [122,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [6,0,0], thread: [123,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [6,0,0], thread: [124,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [6,0,0], thread: [125,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [6,0,0], thread: [126,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+../aten/src/ATen/native/cuda/IndexKernel.cu:92: operator(): block: [6,0,0], thread: [127,0,0] Assertion `-sizes[i] <= index && index < sizes[i] && "index out of bounds"` failed.
+Traceback (most recent call last):
+  File "/workspace/truongan/crop_nav/xinyanlin/tools/train.py", line 76, in <module>
+    main()
+  File "/workspace/truongan/crop_nav/xinyanlin/tools/train.py", line 72, in main
+    runner.train()
+  File "/workspace/truongan/crop_nav/venv310/lib/python3.10/site-packages/mmengine/runner/runner.py", line 1777, in train
+    model = self.train_loop.run()  # type: ignore
+  File "/workspace/truongan/crop_nav/venv310/lib/python3.10/site-packages/mmengine/runner/loops.py", line 286, in run
+    self.run_iter(data_batch)
+  File "/workspace/truongan/crop_nav/venv310/lib/python3.10/site-packages/mmengine/runner/loops.py", line 309, in run_iter
+    outputs = self.runner.model.train_step(
+  File "/workspace/truongan/crop_nav/venv310/lib/python3.10/site-packages/mmengine/model/base_model/base_model.py", line 114, in train_step
+    losses = self._run_forward(data, mode='loss')  # type: ignore
+  File "/workspace/truongan/crop_nav/venv310/lib/python3.10/site-packages/mmengine/model/base_model/base_model.py", line 361, in _run_forward
+    results = self(**data, mode=mode)
+  File "/workspace/truongan/crop_nav/venv310/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1518, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+  File "/workspace/truongan/crop_nav/venv310/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1527, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/workspace/truongan/crop_nav/venv310/lib/python3.10/site-packages/mmseg/models/segmentors/base.py", line 94, in forward
+    return self.loss(inputs, data_samples)
+  File "/workspace/truongan/crop_nav/venv310/lib/python3.10/site-packages/mmseg/models/segmentors/encoder_decoder.py", line 178, in loss
+    loss_decode = self._decode_head_forward_train(x, data_samples)
+  File "/workspace/truongan/crop_nav/venv310/lib/python3.10/site-packages/mmseg/models/segmentors/encoder_decoder.py", line 139, in _decode_head_forward_train
+    loss_decode = self.decode_head.loss(inputs, data_samples,
+  File "/workspace/truongan/crop_nav/xinyanlin/agri_pidnet/model.py", line 780, in loss
+    losses = super().loss_by_feat(logits, batch_data_samples)
+  File "/workspace/truongan/crop_nav/venv310/lib/python3.10/site-packages/mmseg/models/decode_heads/decode_head.py", line 324, in loss_by_feat
+    loss[loss_decode.loss_name] = loss_decode(
+  File "/workspace/truongan/crop_nav/venv310/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1518, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+  File "/workspace/truongan/crop_nav/venv310/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1527, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/workspace/truongan/crop_nav/xinyanlin/agri_pidnet/model.py", line 74, in forward
+    class_weight = probabilities.new_tensor(self.class_weight)
+RuntimeError: CUDA error: device-side assert triggered
+CUDA kernel errors might be asynchronously reported at some other API call, so the stacktrace below might be incorrect.
+For debugging consider passing CUDA_LAUNCH_BLOCKING=1.
+Compile with `TORCH_USE_CUDA_DSA` to enable device-side assertions.
+
